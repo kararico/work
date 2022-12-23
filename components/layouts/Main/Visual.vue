@@ -48,8 +48,8 @@ export default {
         x: 500
         })
 
-        .from(text, {
-        xPercent: -120
+        .from(text, { 
+            xPercent: -120 
         });
         // let tl = $gsap.timeline()
         //     .from(background, {backgroundPosition:"60% 0%", filter:"brightness(0.1)", duration:1})
