@@ -23,6 +23,11 @@
 <script>
 export default {
   name: 'Visual',
+
+  created(){ 
+   
+  },
+
   mounted(){
     this.$nextTick(function() { 
         this.visualEffect();
@@ -36,7 +41,8 @@ export default {
         const textTitle = document.querySelectorAll( ".text-title" );
         this.$gsap.timeline({
             scrollTrigger: {
-                trigger: section,
+                id: 'mainVisual',
+                trigger: visual,
                 start: "top center",
                 end: "+=400",
                 scrub: true,
@@ -44,42 +50,18 @@ export default {
             }
         })
         .from(textTitle, {
-        opacity: 0,
-        x: 500
-        })
-
-        .from(text, { 
-            xPercent: -120 
-        });
-        // let tl = $gsap.timeline()
-        //     .from(background, {backgroundPosition:"60% 0%", filter:"brightness(0.1)", duration:1})
-        //     .from(headings, {y:200, stagger:0.1}, 0)
-        
-        // ScrollTrigger.create({
-        //     trigger:element,
-        //     start:"top 90%",
-        //     toggleActions:"play none none reverse",
-        //     animation:tl
-        // })
-
-
-        this.$gsap.to( visual, {
             opacity: 0,
-            backgroundColor: '#000000',
-            scrollTrigger: {
-                trigger: visual,
-                scrub: true,
-                start: "top top",
-                end: "+=" + innerHeight*2,
-                pin: true,
-                pinSpacing: false,
-                markers: true
-            }
-        })
-
+            x: 500
+        }),
 
     }
+  },
+
+  beforeDestroy(){
+    this.$ScrollTrigger.getById('mainVisual').kill();
   }
+
+
 }
 </script> 
 <style lang="scss">
