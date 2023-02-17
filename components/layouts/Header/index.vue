@@ -1,9 +1,7 @@
 <template>
-    <header>    
+    <header :class="{ show : isLoading }">    
         <h1>
-            <a href="javascript:;">
-                <img src="https://assets.website-files.com/5b2a8936920a797db4639905/5b2a8936920a798c07639957_logo.png" alt="" >
-            </a>
+            <a href="javascript:;"></a>
         </h1> 
         <nav> 
             <router-link tag="a" to="/">Home</router-link>
@@ -14,18 +12,37 @@
 </template>  
 <script>
 export default {
-    name: 'Header',
+   name: 'Header',
+   props: {
+    // isLoadingChecked: {
+    //     type: Boolean,
+    // }
+  },
+  data (){
+    return{
+        isLoading: false,
+    }
+  },
+  mounted(){
+    this.$nextTick(function() { 
+        this.$bus.$on('loadingEnd', () => {
+            this.isLoading = true;
+        })
+    });
+  },
 }
+
 </script>
-<style lang="scss" scoped>
+<style lang="scss" scoped> 
      header{  
-        position: absolute;
+        position: absolute; 
         width: 100%;
         height: auto;
         padding:vw(80px 80px 0 80px ) !important; 
         background: transparent;
         box-sizing: border-box;
         z-index: 10;
+        opacity: 0;
         h1{
             display: flex; 
             float: left;
@@ -34,12 +51,11 @@ export default {
             align-items: center;
             a{
                 display: block;
-                img{
-                    display: inline-block;
-                    max-width: 100%;
-                }
+                width: inherit;
+                height: inherit;
+                background:url( ~assets/images/common/logo_w.png) 0 0 no-repeat;
+                background-size:vw(188px) auto;
             }
-            
         }
         nav{
             position: relative;
@@ -51,8 +67,11 @@ export default {
                 margin:vw( 0  10px);
                 font-size:vw(16px);
                 font-weight: 400;
-                color: #000;
+                color: #fff;
             }
+        }
+        &.show{
+            opacity: 1;
         }
      }
 </style>

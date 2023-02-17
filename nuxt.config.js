@@ -28,7 +28,9 @@ export default {
   css: [],
 
   // 페이지를 렌더링하기 전에 실행할 플러그인
-  plugins: [],
+  plugins: [
+    '~plugins/bus'
+  ],
 
   // 구성 요소 자동 가져오기
   components: true,
@@ -37,8 +39,13 @@ export default {
   buildModules: [
     "@nuxtjs/style-resources",
     "@nuxt/postcss8",
+    'nuxt-gsap',
     "nuxt-gsap-module",
   ],
+  nuxtGsap:{
+    imports: ['Back', 'Circ', "Expo", "Power0", "Power2"] 
+  },
+  //global css 설정
   styleResources: {
     scss: [
       "@/assets/scss/_reset.scss",
@@ -47,9 +54,10 @@ export default {
       // '@/assets/styles/_colors.scss',
     ],
   },
-
+  loading: '~/components/Loading.vue',
   // 모듈
   modules: [],
+  //gsap 설정
   gsap: {
     extraPlugins: {
       scrollTo: true,
